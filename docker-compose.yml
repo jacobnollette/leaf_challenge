@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+    nginx:
+        image: nginx:1.13
+        ports:
+            - '8008:80'
+        links:
+            -  php
+        volumes:
+            - ./config/nginx:/etc/nginx/conf.d
+            - ./logs/:/var/log/nginx/
+            - ./app:/var/www/html/
+        restart: always
+    php:
+        image: jnollette/php_development:latest
+        volumes:
+            - ./app:/var/www/html/
+        restart: always
+
+volumes:
+     wordpress_data:
